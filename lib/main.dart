@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:time_capsule_app/screens/animation/navigation_animation.dart';
 import 'package:time_capsule_app/screens/animation/success_animation.dart';
 import 'package:time_capsule_app/screens/create_time_capsule.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),
         useMaterial3: true,
+        fontFamily: GoogleFonts.lato().fontFamily,
       ),
       initialRoute: '/',
       routes: {
