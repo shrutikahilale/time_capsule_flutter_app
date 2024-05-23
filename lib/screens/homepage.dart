@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20.0),
             TextButton(
               onPressed: () async {
-                await Get.toNamed('/create_screen');
+                await Get.toNamed('/navigate_screen');
               },
               style: ButtonStyle(
                 backgroundColor:

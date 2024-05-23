@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:time_capsule_app/screens/animation/navigation_animation.dart';
+import 'package:time_capsule_app/screens/animation/success_animation.dart';
 import 'package:time_capsule_app/screens/create_time_capsule.dart';
 import 'package:time_capsule_app/screens/homepage.dart';
 
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/create_screen': (context) => CreateScreen(),
+        '/navigate_screen': (context) => const NavigationAnimation(),
+        '/success_screen': (context) => const SuccessAnimation(),
       },
     );
   }

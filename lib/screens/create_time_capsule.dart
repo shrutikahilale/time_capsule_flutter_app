@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/create_capsule_controller.dart';
 import '../controllers/user_controller.dart';
 
+// ignore: must_be_immutable
 class CreateScreen extends StatelessWidget {
   CreateScreen({super.key});
 
@@ -61,11 +62,31 @@ class CreateScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.calendar_month),
                 ),
-                title: Obx(() => Text(
-                      controller.selectedDate.value.isEmpty
-                          ? 'No date selected'
-                          : controller.selectedDate.value,
-                    )),
+                title: Obx(
+                  () => Text(
+                    controller.selectedDate.value.isEmpty
+                        ? 'No date selected'
+                        : controller.selectedDate.value,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text('How often do you want to be reminded?'),
+              const SizedBox(height: 16.0),
+              GetBuilder<CreateCapsuleController>(
+                builder: (controller) => DropdownButton(
+                  value: controller.reminderCriteria,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: controller.reminderCriteriaItems.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(item),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    controller.updateReminderCriteria(newValue!);
+                  },
+                ),
               ),
               const SizedBox(height: 16.0),
               const Text('Select your memories'),
@@ -91,52 +112,35 @@ class CreateScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16.0),
-              const Text('How often do you want to be reminded?'),
-              const SizedBox(height: 16.0),
-              GetBuilder<CreateCapsuleController>(
-                builder: (controller) => DropdownButton(
-                  value: controller.reminderCriteria,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: controller.reminderCriteriaItems.map((String item) {
-                    return DropdownMenuItem(
-                      value: item,
-                      child: Text(item),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    controller.updateReminderCriteria(newValue!);
-                  },
-                ),
-              ),
-              const SizedBox(height: 16.0),
               Obx(
                 () => Wrap(
                   children: controller.selectedImages.isEmpty
                       ? [const Text('No photo is selected')]
                       : [
                           Wrap(
-                              children: controller.selectedImages
-                                  .asMap()
-                                  .map((index, file) => MapEntry(
-                                      index,
-                                      Stack(children: [
-                                        Image.file(
-                                          file,
-                                          width: 100,
-                                          height: 100,
+                            children: controller.selectedImages
+                                .asMap()
+                                .map((index, file) => MapEntry(
+                                    index,
+                                    Stack(children: [
+                                      Image.file(
+                                        file,
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: IconButton(
+                                          onPressed: () =>
+                                              controller.deleteImage(index),
+                                          icon: const Icon(Icons.close),
                                         ),
-                                        Positioned(
-                                          top: 0,
-                                          right: 0,
-                                          child: IconButton(
-                                            onPressed: () =>
-                                                controller.deleteImage(index),
-                                            icon: const Icon(Icons.close),
-                                          ),
-                                        ),
-                                      ])))
-                                  .values
-                                  .toList())
+                                      ),
+                                    ])))
+                                .values
+                                .toList(),
+                          )
                         ],
                 ),
               ),
@@ -163,7 +167,7 @@ class CreateScreen extends StatelessWidget {
                   } else {
                     final data = await controller.createMemory(context);
                     await userController.addTimeCapsule(data);
-                    Get.back();
+                    Get.offAndToNamed('/success_screen');
                   }
                 },
                 style: ButtonStyle(
