@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:time_capsule_app/screens/animation/navigation_animation.dart';
 import 'package:time_capsule_app/screens/animation/success_animation.dart';
 import 'package:time_capsule_app/screens/create_time_capsule.dart';
 import 'package:time_capsule_app/screens/homepage.dart';
 
 import 'controllers/user_controller.dart';
+import 'theme/theme_notifier.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: const MyApp(),
+    ),
+  );
   Get.put(UserController());
 }
 
@@ -18,19 +24,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: const ColorScheme.dark(),
-        useMaterial3: true,
-        fontFamily: GoogleFonts.lato().fontFamily,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(),
-        '/create_screen': (context) => CreateScreen(),
-        '/navigate_screen': (context) => const NavigationAnimation(),
-        '/success_screen': (context) => const SuccessAnimation(),
+    return Consumer<ThemeNotifier>(
+      builder: (context, themeNotifier, child) {
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          theme: themeNotifier.currentTheme,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => HomePage(),
+            '/create_screen': (context) => CreateScreen(),
+            '/navigate_screen': (context) => const NavigationAnimation(),
+            '/success_screen': (context) => const SuccessAnimation(),
+          },
+        );
       },
     );
   }

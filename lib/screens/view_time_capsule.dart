@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:time_capsule_app/modal/time_capsule_model.dart';
+import 'package:time_capsule_app/utility/texts.dart';
 
 class DisplayTimeCapsule extends StatelessWidget {
   final TimeCapsule timeCapsule;
@@ -14,44 +15,33 @@ class DisplayTimeCapsule extends StatelessWidget {
     String title = getRandomMemoryTitle();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 16.0),
-        ),
+        title: textwidget(context, title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              timeCapsule.title,
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            titlewidget(context, timeCapsule.title),
             const SizedBox(height: 10),
             Row(
               children: [
-                const Icon(Icons.calendar_today, size: 20, color: Colors.grey),
+                Icon(
+                  Icons.calendar_today,
+                  size: 20,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 const SizedBox(width: 8),
-                Text(
+                textwidget(
+                  context,
                   _formatDate(timeCapsule.date),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Text(
+            textwidget(
+              context,
               timeCapsule.description ?? "",
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-              ),
             ),
             SizedBox(height: timeCapsule.description != null ? 20 : 0),
             ElevatedButton(
@@ -65,9 +55,7 @@ class DisplayTimeCapsule extends StatelessWidget {
               ),
               child: Text(
                 'Reminded: ${timeCapsule.reminderCriteria}',
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
             const SizedBox(height: 20),

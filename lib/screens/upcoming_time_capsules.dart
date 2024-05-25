@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule_app/controllers/user_controller.dart';
 import 'package:time_capsule_app/screens/view_time_capsule.dart';
+import 'package:time_capsule_app/utility/texts.dart';
 
 import '../modal/time_capsule_model.dart';
 
@@ -21,24 +22,20 @@ class UpcomingTimeCapsules extends StatelessWidget {
                 itemCount: userController.timeCapsules.length,
                 itemBuilder: (context, index) {
                   return timeCapsuleContainer(
-                      userController.timeCapsules[index]);
+                      context, userController.timeCapsules[index]);
                 },
               )
-            : const Center(
-                child: Text(
-                'Create your first memory by clicking below!!',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontStyle: FontStyle.italic,
-                ),
-              )),
+            : Center(
+                child: textwidget(
+                    context, 'Create your first memory by clicking below!!'),
+              ),
       ),
     );
   }
 
-  Widget timeCapsuleContainer(TimeCapsule timeCapsule) {
+  Widget timeCapsuleContainer(BuildContext context, TimeCapsule timeCapsule) {
     Color stateColor = timeCapsule.memoryState == 'upcoming'
-        ? Colors.blue
+        ? Colors.blueAccent
         : (timeCapsule.memoryState == 'completed'
             ? Colors.greenAccent
             : Colors.amber);
@@ -51,8 +48,7 @@ class UpcomingTimeCapsules extends StatelessWidget {
         width: 250.0,
         decoration: BoxDecoration(
           color: stateColor,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white, width: 1.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         padding: const EdgeInsets.all(16.0),
         margin: const EdgeInsets.all(8.0),
@@ -63,25 +59,26 @@ class UpcomingTimeCapsules extends StatelessWidget {
               height: 60,
               child: Text(
                 timeCapsule.title,
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: const TextStyle(fontSize: 18.0, color: Colors.white),
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
                 maxLines: 2,
               ),
             ),
-            const SizedBox(height: 10.0),
+            hbox(10.0),
             Row(
               children: [
-                Image.asset(
-                  'assets/images/img.jpeg',
-                  height: 100.0,
+                SizedBox(
+                  width: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      'assets/images/img.jpeg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                const SizedBox(
-                  width: 16.0,
-                ),
+                hbox(16.0),
                 Expanded(
                   child: Text(
                     timeCapsule.description ?? "",

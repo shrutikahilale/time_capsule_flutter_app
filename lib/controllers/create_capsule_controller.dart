@@ -25,6 +25,24 @@ class CreateCapsuleController extends GetxController {
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            // Customize the appearance of the date picker
+            colorScheme: const ColorScheme.dark().copyWith(
+              primary: Colors.orange, // Change primary color
+              onPrimary: Colors.white, // Change text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.orange, // Change button text color
+              ),
+            ),
+            dialogBackgroundColor: Colors.white, // Change dialog background color
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null &&
         getDateFormattedToString(picked) != selectedDate.value) {
