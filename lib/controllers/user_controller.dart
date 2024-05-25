@@ -15,21 +15,68 @@ class UserController extends GetxController {
   initializeUser() {
     timeCapsules = [
       TimeCapsule(
-          title: 'First childhood photograph',
-          description:
-              'Recollections of carefree days, playing with friends, family vacations, and special moments with siblings',
-          date: '24/12/2003',
-          memoryState: 'upcoming',
-          reminderCriteria: 'Every year',
-          memories: <File>[File('assets/images/img.jpeg')]),
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'upcoming',
+        reminderCriteria: 'Every day',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
       TimeCapsule(
-          title: 'School memory',
-          description:
-              'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-          date: '13/08/2015',
-          memoryState: 'upcoming',
-          reminderCriteria: 'Every month',
-          memories: <File>[File('assets/images/img.jpeg')]),
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'upcoming',
+        reminderCriteria: 'Every week',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
+      TimeCapsule(
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'upcoming',
+        reminderCriteria: 'Every month',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
+      TimeCapsule(
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'upcoming',
+        reminderCriteria: 'Every year',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
+      TimeCapsule(
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'upcoming',
+        reminderCriteria: 'Every year',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
+      TimeCapsule(
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'completed',
+        reminderCriteria: 'Every year',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
+      TimeCapsule(
+        title: 'School memory',
+        description:
+            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
+        date: '01/06/2023',
+        memoryState: 'ongoing',
+        reminderCriteria: 'Every year',
+        memories: <File>[File('assets/images/img.jpeg')],
+      ),
     ].obs;
   }
 
