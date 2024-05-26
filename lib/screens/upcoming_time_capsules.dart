@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule_app/controllers/user_controller.dart';
 import 'package:time_capsule_app/utility/texts.dart';
+
 import '../utility/time_capsule_card.dart';
 import 'view_all_time_capules.dart';
 
@@ -16,14 +17,14 @@ class UpcomingTimeCapsules extends StatelessWidget {
       children: [
         SizedBox(
           height: 250,
-          child: Obx(
-            () => userController.timeCapsules.isNotEmpty
+          child: Obx(() {
+            var sortedTimeCapsules = userController.sortedTimeCapsules;
+            return sortedTimeCapsules.isNotEmpty
                 ? ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      if (userController.timeCapsules.length > 3 &&
-                          index == 3) {
+                      if (sortedTimeCapsules.length > 3 && index == 3) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextButton(
@@ -32,7 +33,7 @@ class UpcomingTimeCapsules extends StatelessWidget {
                             },
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.all(0),
-                              backgroundColor: Colors.white10,
+                              backgroundColor: Theme.of(context).cardColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -48,7 +49,7 @@ class UpcomingTimeCapsules extends StatelessWidget {
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50.0),
-                                      color: Colors.white10,
+                                      color: Theme.of(context).cardColor,
                                     ),
                                     child: Icon(
                                       Icons.navigate_next_outlined,
@@ -61,10 +62,10 @@ class UpcomingTimeCapsules extends StatelessWidget {
                           ),
                         );
                       } else {
-                        if (index < userController.timeCapsules.length) {
+                        if (index < sortedTimeCapsules.length) {
                           return timeCapsuleCard(
                             context,
-                            userController.timeCapsules[index],
+                            sortedTimeCapsules[index],
                           );
                         } else {
                           return hbox(0.0);
@@ -75,10 +76,10 @@ class UpcomingTimeCapsules extends StatelessWidget {
                 : Center(
                     child: textwidget(context,
                         'Create your first memory by clicking below!!'),
-                  ),
-          ),
+                  );
+          }),
         ),
       ],
     );
-  } 
+  }
 }

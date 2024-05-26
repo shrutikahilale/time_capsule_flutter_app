@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:time_capsule_app/modal/time_capsule_model.dart';
 import 'package:time_capsule_app/utility/texts.dart';
 
+import 'full_screen_view.dart';
+
 class DisplayTimeCapsule extends StatelessWidget {
   final TimeCapsule timeCapsule;
 
@@ -63,14 +65,28 @@ class DisplayTimeCapsule extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               children: timeCapsule.memories.map((File photo) {
-                return SizedBox(
-                  width: 150,
-                  height: 200,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      photo.path,
-                      fit: BoxFit.cover,
+                int index = timeCapsule.memories.indexOf(photo);
+                return GestureDetector(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => FullScreenImageViewer(
+                    //       images: timeCapsule.memories,
+                    //       initialIndex: index,
+                    //     ),
+                    //   ),
+                    // );
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    height: 200,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        photo.path,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );

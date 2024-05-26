@@ -120,40 +120,45 @@ class CreateScreen extends StatelessWidget {
                       ],
                     ),
                     hbox(10.0),
-                    Obx(
-                      () => Wrap(
-                        children: controller.selectedImages.isEmpty
-                            ? [
-                                Center(
-                                    child: textwidget(
-                                        context, 'No photo is selected'))
-                              ]
-                            : [
-                                Wrap(
-                                  children: controller.selectedImages
-                                      .asMap()
-                                      .map((index, file) => MapEntry(
-                                          index,
-                                          Stack(children: [
-                                            Image.file(
-                                              file,
-                                              width: 100,
-                                              height: 100,
-                                            ),
-                                            Positioned(
-                                              top: 0,
-                                              right: 0,
-                                              child: IconButton(
-                                                onPressed: () => controller
-                                                    .deleteImage(index),
-                                                icon: const Icon(Icons.close),
+                    Container(
+                      decoration:
+                          BoxDecoration(color: Theme.of(context).canvasColor),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Obx(
+                        () => Wrap(
+                          children: controller.selectedImages.isEmpty
+                              ? [
+                                  Center(
+                                      child: textwidget(
+                                          context, 'No photo is selected'))
+                                ]
+                              : [
+                                  Wrap(
+                                    children: controller.selectedImages
+                                        .asMap()
+                                        .map((index, file) => MapEntry(
+                                            index,
+                                            Stack(children: [
+                                              Image.file(
+                                                file,
+                                                width: 100,
+                                                height: 100,
                                               ),
-                                            ),
-                                          ])))
-                                      .values
-                                      .toList(),
-                                )
-                              ],
+                                              Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: IconButton(
+                                                  onPressed: () => controller
+                                                      .deleteImage(index),
+                                                  icon: const Icon(Icons.close),
+                                                ),
+                                              ),
+                                            ])))
+                                        .values
+                                        .toList(),
+                                  )
+                                ],
+                        ),
                       ),
                     ),
                   ],

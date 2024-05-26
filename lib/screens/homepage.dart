@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:time_capsule_app/controllers/user_controller.dart';
 import 'package:time_capsule_app/screens/upcoming_time_capsules.dart';
 
+import '../theme/app_themedata.dart';
 import '../theme/theme_notifier.dart';
 import '../utility/buttons.dart';
 import '../utility/texts.dart';
@@ -24,18 +25,33 @@ class HomePage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Provider.of<ThemeNotifier>(context, listen: false)
-                              .switchTheme();
-                        },
-                        icon: const Icon(Icons.brightness_6),
-                      ),
-                    ],
+                  hbox(10.0),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        titlewidget(context, 'Hi, there 👋'),
+                        IconButton(
+                          onPressed: () {
+                            Provider.of<ThemeNotifier>(context, listen: false)
+                                .switchTheme();
+                          },
+                          icon:
+                              Provider.of<ThemeNotifier>(context, listen: false)
+                                          .currentTheme ==
+                                      darkTheme
+                                  ? const Icon(Icons.sunny)
+                                  : const Icon(Icons.brightness_2),
+                        ),
+                      ],
+                    ),
                   ),
+                  hbox(20.0),
                   headingwidget(context, 'Upcoming Memories'),
                   const SizedBox(height: 12.0),
                   UpcomingTimeCapsules(),

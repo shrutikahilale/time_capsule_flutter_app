@@ -38,6 +38,8 @@ final ThemeData lightTheme = ThemeData(
     hintStyle: const TextStyle(color: Colors.grey),
     labelStyle: const TextStyle(color: Colors.blue),
   ),
+  cardColor: Colors.black12,
+  canvasColor: Colors.black12,
   fontFamily: GoogleFonts.kumbhSans().fontFamily,
 );
 
@@ -78,5 +80,7 @@ final ThemeData darkTheme = ThemeData(
     hintStyle: TextStyle(color: Colors.grey[400]),
     labelStyle: TextStyle(color: Colors.grey[400]),
   ),
+  cardColor: Colors.white10,
+  canvasColor: Colors.blueGrey.shade800,
   fontFamily: GoogleFonts.kumbhSans().fontFamily,
 );

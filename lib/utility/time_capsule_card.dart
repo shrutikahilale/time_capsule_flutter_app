@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:time_capsule_app/utility/colors.dart';
 import 'package:time_capsule_app/utility/texts.dart';
+import 'package:time_capsule_app/utility/time_capsule_data_processing.dart';
+
 import '../modal/time_capsule_model.dart';
 import '../screens/view_time_capsule.dart';
 
 Widget timeCapsuleCard(BuildContext context, TimeCapsule timeCapsule) {
   Color stateColor = getStateColor(timeCapsule.memoryState);
+  String imagePath = getReminderCriteriaImagePath(timeCapsule.reminderCriteria);
 
   return GestureDetector(
     onTap: () {
       Get.to(() => DisplayTimeCapsule(timeCapsule: timeCapsule));
     },
     child: Container(
-      width: 250.0,
+      width: 300.0,
       decoration: BoxDecoration(
         color: stateColor,
         borderRadius: BorderRadius.circular(10.0),
@@ -23,15 +25,24 @@ Widget timeCapsuleCard(BuildContext context, TimeCapsule timeCapsule) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 60,
-            child: Text(
-              timeCapsule.title,
-              style: const TextStyle(fontSize: 18.0, color: Colors.white),
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-              maxLines: 2,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                child: Text(
+                  timeCapsule.title,
+                  style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  maxLines: 2,
+                ),
+              ),
+              Image.asset(
+                imagePath,
+                height: 50.0,
+              ),
+            ],
           ),
           hbox(10.0),
           Row(
@@ -64,13 +75,16 @@ Widget timeCapsuleCard(BuildContext context, TimeCapsule timeCapsule) {
                     hbox(8.0),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_today,
                           size: 20,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Colors.white,
                         ),
                         wbox(8.0),
-                        textwidget(context, timeCapsule.date),
+                        Text(
+                          timeCapsule.date,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ],
                     )
                   ],

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:time_capsule_app/utility/texts.dart';
 import 'package:time_capsule_app/utility/time_capsule_tile.dart';
 import 'package:timelines/timelines.dart';
-import '../utility/time_capsule_card.dart';
-import 'package:time_capsule_app/utility/texts.dart';
 
 import '../controllers/user_controller.dart';
 import '../modal/time_capsule_model.dart';
+import '../utility/time_capsule_card.dart';
 
 class AllTimeCapsulesScreen extends StatefulWidget {
   const AllTimeCapsulesScreen({super.key});
@@ -51,7 +51,7 @@ class _AllTimeCapsulesScreenState extends State<AllTimeCapsulesScreen> {
               Expanded(
                 child: Obx(
                   () {
-                    var sortedTimeCapsules = userController.timeCapsules;
+                    var sortedTimeCapsules = userController.sortedTimeCapsules;
                     return sortedTimeCapsules.isNotEmpty
                         ? isCardView
                             ? _buildCardView(context, sortedTimeCapsules)
