@@ -38,7 +38,8 @@ class CreateCapsuleController extends GetxController {
                 foregroundColor: Colors.orange, // Change button text color
               ),
             ),
-            dialogBackgroundColor: Colors.white, // Change dialog background color
+            dialogBackgroundColor:
+                Colors.white, // Change dialog background color
           ),
           child: child!,
         );
@@ -81,12 +82,13 @@ class CreateCapsuleController extends GetxController {
   Future<TimeCapsule> createMemory(BuildContext context) async {
     // this shall be later converted to api calls/storage to db
     return TimeCapsule(
+      id: 1,
       title: titleController.text.trim(),
-      date: selectedDate.value,
+      date: DateTime.parse(selectedDate.value),
       memories: selectedImages,
       description: descriptionController.text.toString(),
       reminderCriteria: reminderCriteria,
-      memoryState: 'upcoming',
+      isCapsuleActive: false,
     );
   }
 

@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:time_capsule_app/modal/time_capsule_model.dart';
-import 'package:time_capsule_app/utility/texts.dart';
+import 'package:time_capsule_app/screens/utility/texts.dart';
 
-import 'full_screen_view.dart';
+import 'utility/time_capsule_data_processing.dart';
 
 class DisplayTimeCapsule extends StatelessWidget {
   final TimeCapsule timeCapsule;
@@ -36,7 +36,7 @@ class DisplayTimeCapsule extends StatelessWidget {
                 const SizedBox(width: 8),
                 textwidget(
                   context,
-                  _formatDate(timeCapsule.date),
+                  formatDate(timeCapsule.date),
                 ),
               ],
             ),
@@ -65,7 +65,7 @@ class DisplayTimeCapsule extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               children: timeCapsule.memories.map((File photo) {
-                int index = timeCapsule.memories.indexOf(photo);
+                // int index = timeCapsule.memories.indexOf(photo);
                 return GestureDetector(
                   onTap: () {
                     // Navigator.push(
@@ -96,46 +96,6 @@ class DisplayTimeCapsule extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatDate(String dateString) {
-    List<String> date = dateString.split('/');
-    final day = date[0];
-    final month = _getMonthName(int.parse(date[1]));
-    final year = date[2];
-
-    return '$day $month, $year';
-  }
-
-  String _getMonthName(int month) {
-    switch (month) {
-      case 1:
-        return 'January';
-      case 2:
-        return 'February';
-      case 3:
-        return 'March';
-      case 4:
-        return 'April';
-      case 5:
-        return 'May';
-      case 6:
-        return 'June';
-      case 7:
-        return 'July';
-      case 8:
-        return 'August';
-      case 9:
-        return 'September';
-      case 10:
-        return 'October';
-      case 11:
-        return 'November';
-      case 12:
-        return 'December';
-      default:
-        return '';
-    }
   }
 
   String getRandomMemoryTitle() {

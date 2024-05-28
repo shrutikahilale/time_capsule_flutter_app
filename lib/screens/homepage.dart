@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:time_capsule_app/controllers/user_controller.dart';
 import 'package:time_capsule_app/screens/upcoming_time_capsules.dart';
+import 'package:time_capsule_app/services/auth_service.dart';
 
-import '../theme/app_themedata.dart';
-import '../theme/theme_notifier.dart';
-import '../utility/buttons.dart';
-import '../utility/texts.dart';
+import 'theme/app_themedata.dart';
+import 'theme/theme_notifier.dart';
+import 'utility/buttons.dart';
+import 'utility/texts.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -65,7 +66,15 @@ class HomePage extends StatelessWidget {
               },
               style: buttonStyle(Colors.amber.shade700),
               child: buttonText('Create Memory'),
-            )
+            ),
+            TextButton(
+              onPressed: () async {
+                AuthService auth = AuthService();
+                await auth.signOut();
+              },
+              style: buttonStyle(Colors.grey[900]),
+              child: buttonText('Log out'),
+            ),
           ],
         ),
       ),

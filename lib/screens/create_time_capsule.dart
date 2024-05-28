@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:time_capsule_app/utility/texts.dart';
+import 'package:time_capsule_app/screens/utility/texts.dart';
+import 'package:time_capsule_app/services/database_service.dart';
 
 import '../controllers/create_capsule_controller.dart';
 import '../controllers/user_controller.dart';
-import '../utility/buttons.dart';
+import '../modal/time_capsule_model.dart';
+import 'utility/buttons.dart';
 
 // ignore: must_be_immutable
 class CreateScreen extends StatelessWidget {
@@ -183,8 +185,24 @@ class CreateScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Memorable date is a must!❤️')));
                 } else {
-                  final data = await controller.createMemory(context);
-                  await userController.addTimeCapsule(data);
+                  // final data = await controller.createMemory(context);
+                  // await userController.addTimeCapsule(data);
+
+                  DatabaseService service = DatabaseService();
+                  await service.addTimeCapsule(
+                    'userId',
+                    TimeCapsule(
+                      id: 1,
+                      title: controller.titleController.text.trim(),
+                      date: DateTime.parse(controller.selectedDate.value),
+                      memories: controller.selectedImages,
+                      description:
+                          controller.descriptionController.text.toString(),
+                      reminderCriteria: controller.reminderCriteria,
+                      isCapsuleActive: false,
+                    ),
+                  );
+
                   Get.offAndToNamed('/success_screen');
                 }
               },

@@ -1,11 +1,15 @@
-import 'package:time_capsule_app/modal/time_capsule_model.dart';
-
 class User {
+  int id;
   String name;
-  List<TimeCapsule> timeCapsules;
+  String email;
+  DateTime createdAt;
+  List<int> timeCapsules;
 
   User({
+    required this.id,
     required this.name,
+    required this.email,
+    required this.createdAt,
     required this.timeCapsules,
   });
 }

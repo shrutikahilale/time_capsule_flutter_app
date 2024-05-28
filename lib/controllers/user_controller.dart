@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:time_capsule_app/modal/time_capsule_model.dart';
@@ -14,89 +12,9 @@ class UserController extends GetxController {
   }
 
   initializeUser() {
-    timeCapsules = [
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every day',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/04/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every day',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/01/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every day',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every week',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every month',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every year',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every year',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'upcoming',
-        reminderCriteria: 'Every year',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-      TimeCapsule(
-        title: 'School memory',
-        description:
-            'Memories of school days, friendships, teachers, exams, school events, and college experiences',
-        date: '01/06/2023',
-        memoryState: 'active',
-        reminderCriteria: 'Every year',
-        memories: <File>[File('assets/images/img.jpeg')],
-      ),
-    ].obs;
+    // timeCapsules = [
+
+    // ].obs;
   }
 
   // Method to add a new time capsule
@@ -111,10 +29,10 @@ class UserController extends GetxController {
 
     // Separate the capsules
     for (var capsule in timeCapsules) {
-      if (capsule.memoryState == "upcoming") {
-        upcomingCapsules.add(capsule);
-      } else {
+      if (capsule.isCapsuleActive) {
         activeCapsules.add(capsule);
+      } else {
+        upcomingCapsules.add(capsule);
       }
     }
 
@@ -137,7 +55,7 @@ class UserController extends GetxController {
 }
 
 extension on TimeCapsule {
-  DateTime get parsedDate => DateFormat('dd/MM/yyyy').parse(date);
+  DateTime get parsedDate => date;
 
   DateTime nextReminderDate(DateTime currentDate) {
     switch (reminderCriteria) {

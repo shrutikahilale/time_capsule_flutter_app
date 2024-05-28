@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule_app/controllers/user_controller.dart';
-import 'package:time_capsule_app/utility/texts.dart';
+import 'package:time_capsule_app/screens/utility/texts.dart';
 
-import '../utility/time_capsule_card.dart';
+import 'utility/time_capsule_card.dart';
 import 'view_all_time_capules.dart';
 
 class UpcomingTimeCapsules extends StatelessWidget {
