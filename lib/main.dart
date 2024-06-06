@@ -4,13 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:time_capsule_app/auth/login.dart';
 import 'package:time_capsule_app/auth/sign_up.dart';
-import 'package:time_capsule_app/screens/animation/navigation_animation.dart';
-import 'package:time_capsule_app/screens/animation/success_animation.dart';
 import 'package:time_capsule_app/screens/create_time_capsule.dart';
 import 'package:time_capsule_app/screens/homepage.dart';
 import 'package:time_capsule_app/screens/wrapper.dart';
 
-import 'controllers/user_controller.dart';
 import 'screens/theme/theme_notifier.dart';
 
 Future<void> main() async {
@@ -26,7 +23,6 @@ Future<void> main() async {
       child: const MyApp(),
     ),
   );
-  Get.put(UserController());
 }
 
 final supabase = Supabase.instance.client;
@@ -46,8 +42,6 @@ class MyApp extends StatelessWidget {
             '/': (context) => const Wrapper(),
             '/home_page': (context) => HomePage(),
             '/create_screen': (context) => CreateScreen(),
-            '/navigate_screen': (context) => const NavigationAnimation(),
-            '/success_screen': (context) => const SuccessAnimation(),
             '/sign_up': (context) => const SignUpScreen(),
             '/login': (context) => const LoginScreen(),
           },

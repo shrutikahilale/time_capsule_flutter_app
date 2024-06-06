@@ -1,11 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule_app/screens/utility/texts.dart';
-import 'package:time_capsule_app/services/database_service.dart';
 
 import '../controllers/create_capsule_controller.dart';
 import '../controllers/user_controller.dart';
-import '../modal/time_capsule_model.dart';
 import 'utility/buttons.dart';
 
 // ignore: must_be_immutable
@@ -185,25 +184,7 @@ class CreateScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Memorable date is a must!❤️')));
                 } else {
-                  // final data = await controller.createMemory(context);
-                  // await userController.addTimeCapsule(data);
-
-                  DatabaseService service = DatabaseService();
-                  await service.addTimeCapsule(
-                    'userId',
-                    TimeCapsule(
-                      id: 1,
-                      title: controller.titleController.text.trim(),
-                      date: DateTime.parse(controller.selectedDate.value),
-                      memories: controller.selectedImages,
-                      description:
-                          controller.descriptionController.text.toString(),
-                      reminderCriteria: controller.reminderCriteria,
-                      isCapsuleActive: false,
-                    ),
-                  );
-
-                  Get.offAndToNamed('/success_screen');
+                  _addTimeCapsule(context);
                 }
               },
               style: buttonStyle(Colors.pink),
@@ -213,5 +194,61 @@ class CreateScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _addTimeCapsule(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return FutureBuilder(
+          future: _addTimeCapsuleWithTimeout(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const AlertDialog(
+                content: Row(
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(width: 20),
+                    Text('Adding time capsule...'),
+                  ],
+                ),
+              );
+            } else {
+              Navigator.of(context).pop();
+
+              // Show success or error message
+              String printing;
+              if (snapshot.hasData && snapshot.data == true) {
+                printing = 'Time capsule added successfully.';
+              } else if (snapshot.hasData && snapshot.data == false) {
+                printing = 'Process timed out. Please try again.';
+              } else {
+                printing = 'Error';
+              }
+
+              if (kDebugMode) {
+                print(
+                    '*************************************************************************** $printing');
+              }
+              Get.offAndToNamed('/home_page');
+              return const SizedBox.shrink();
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Future<bool> _addTimeCapsuleWithTimeout() async {
+    return Future.any([
+      userController.addTimeCapsule(
+        controller.titleController.text.trim(),
+        controller.descriptionController.text.trim(),
+        controller.selectedDate.trim(),
+        controller.reminderCriteria,
+        controller.selectedImages,
+      ),
+      Future.delayed(const Duration(seconds: 15), () => false),
+    ]);
   }
 }

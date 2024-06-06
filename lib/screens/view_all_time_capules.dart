@@ -5,7 +5,7 @@ import 'package:time_capsule_app/screens/utility/time_capsule_tile.dart';
 import 'package:timelines/timelines.dart';
 
 import '../controllers/user_controller.dart';
-import '../modal/time_capsule_model.dart';
+import '../modal/time_capsule_model_v2.dart';
 import 'utility/time_capsule_card.dart';
 
 class AllTimeCapsulesScreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _AllTimeCapsulesScreenState extends State<AllTimeCapsulesScreen> {
               Expanded(
                 child: Obx(
                   () {
-                    var sortedTimeCapsules = userController.sortedTimeCapsules;
+                    var sortedTimeCapsules = userController.timeCapsules;
                     return sortedTimeCapsules.isNotEmpty
                         ? isCardView
                             ? _buildCardView(context, sortedTimeCapsules)

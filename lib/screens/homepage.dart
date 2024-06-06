@@ -13,7 +13,7 @@ import 'utility/texts.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final userController = Get.find<UserController>();
+  final userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20.0),
             TextButton(
               onPressed: () async {
-                await Get.toNamed('/navigate_screen');
+                await Get.offAndToNamed('/create_screen');
               },
               style: buttonStyle(Colors.amber.shade700),
               child: buttonText('Create Memory'),

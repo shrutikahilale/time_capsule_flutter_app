@@ -1,40 +1,51 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:time_capsule_app/modal/time_capsule_model.dart';
+import 'package:time_capsule_app/modal/time_capsule_model_v2.dart';
+import 'package:time_capsule_app/services/auth_service.dart';
+
+import '../services/database_service.dart';
 
 class UserController extends GetxController {
   var timeCapsules = <TimeCapsule>[].obs;
+  String userId = '';
+
+  final DatabaseService _databaseService = DatabaseService();
+  final AuthService _authService = AuthService();
 
   @override
   void onInit() {
-    initializeUser();
+    userId = _authService.currentUserId!;
     super.onInit();
   }
 
-  initializeUser() {
-    // timeCapsules = [
+  Future<List<TimeCapsule>> fetchTimeCapsuleData(String userId) async {
+    return await _databaseService.fetchTimeCapsules(userId);
+  }
 
-    // ].obs;
+  Future<List<TimeCapsule>> getData() async {
+    timeCapsules.value = await fetchTimeCapsuleData(userId);
+    if (kDebugMode) {
+      print('TIME CAPSULES: $timeCapsules');
+    }
+    return timeCapsules;
   }
 
   // Method to add a new time capsule
-  Future<void> addTimeCapsule(TimeCapsule capsule) async {
-    timeCapsules.add(capsule);
+  Future<bool> addTimeCapsule(String title, String description, String date,
+      String reminderCriteria, List<File> images) async {
+    final response = await _databaseService.createTimeCapsule(
+        userId, title, description, date, reminderCriteria, images);
+    if (response == 'success') return true;
+    return false;
   }
 
   List<TimeCapsule> get sortedTimeCapsules {
     List<TimeCapsule> upcomingCapsules = [];
     List<TimeCapsule> activeCapsules = [];
     DateTime now = DateTime.now();
-
-    // Separate the capsules
-    for (var capsule in timeCapsules) {
-      if (capsule.isCapsuleActive) {
-        activeCapsules.add(capsule);
-      } else {
-        upcomingCapsules.add(capsule);
-      }
-    }
 
     // Sort each list based on nextReminderDate
     upcomingCapsules.sort(

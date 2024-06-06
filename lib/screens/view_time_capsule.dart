@@ -1,8 +1,7 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:time_capsule_app/modal/time_capsule_model.dart';
+import 'package:time_capsule_app/modal/time_capsule_model_v2.dart';
 import 'package:time_capsule_app/screens/utility/texts.dart';
 
 import 'utility/time_capsule_data_processing.dart';
@@ -21,8 +20,7 @@ class DisplayTimeCapsule extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             titlewidget(context, timeCapsule.title),
             const SizedBox(height: 10),
@@ -64,7 +62,7 @@ class DisplayTimeCapsule extends StatelessWidget {
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
-              children: timeCapsule.memories.map((File photo) {
+              children: timeCapsule.memories.map((String memoryURL) {
                 // int index = timeCapsule.memories.indexOf(photo);
                 return GestureDetector(
                   onTap: () {
@@ -83,8 +81,8 @@ class DisplayTimeCapsule extends StatelessWidget {
                     height: 200,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        photo.path,
+                      child: Image.network(
+                        memoryURL,
                         fit: BoxFit.cover,
                       ),
                     ),
